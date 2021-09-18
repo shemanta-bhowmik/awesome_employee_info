@@ -1,11 +1,11 @@
 <?php 
 /*
-Plugin Name: Standard Employee List
-Plugin URI: http://batch24.xyz/demo/plugins
-Author: Sujan
-Author URI: http://mtmsujan.com 
-Version: 1.0 
-Description: Standard and Easy to Use Employee List Plugin
+	Plugin Name: Awesome Employee Info
+	Plugin URI: http://shemantabhowmik.com/awesome-employee-info/
+	Author: Shemanta Bhowmik
+	Author URI: http://shemantabhowmik.com/ 
+	Version: 1.0 
+	Description: Awesome and easy to use employee list plugin. Any one can use this plugin without any knowledge of coding. This is really simple to use.
 */
 
 class Employee {
@@ -102,70 +102,59 @@ class Employee {
 		add_meta_box('employee-info', 'Employee Information', array($this, 'employee_information'), 'employee_list', 'normal', 'high');
 	}
 
-	public function employee_information(){
-
-		// personal info getting
-		$father_val = get_post_meta( get_the_id(), 'ei_father', true );
-		$mother_val = get_post_meta( get_the_id(), 'ei_mother', true );
-		$gender_val = get_post_meta( get_the_id(), 'ei_gender', true );
-
-		// official info getting
-		$designation_val = get_post_meta( get_the_id(), 'ei_designation', true );
-		
-		// academic info getting
-		$sscyear_val = get_post_meta( get_the_id(), 'ei_sscyear', true );
-		$hscyear_val = get_post_meta( get_the_id(), 'ei_hscyear', true );
-		$bscyear_val = get_post_meta( get_the_id(), 'ei_bscyear', true );
-
-		// experience info getting
-		$skills_val = get_post_meta( get_the_id(), 'ei_skills', true );
-
-		?>
+	public function employee_information(){ ?>
 
 		<div id="tabs">
-		  <ul>
-		    <li><a href="#personal">Personal Information</a></li>
-		    <li><a href="#official">Official Information</a></li>
-		    <li><a href="#academic">Academic Information</a></li>
-		    <li><a href="#experience">Experience</a></li>
-		  </ul>
+			<ul>
+				<li><a href="#introduction">Introduction</a></li>
+				<li><a href="#education">Education</a></li>
+				<li><a href="#experience">Experience</a></li>
+				<li><a href="#skills">Skills</a></li>
+			</ul>
 
-		 <!-- Personal Informations -->
-		  <div id="personal">
-		    <p><label for="father">Father's Name</label></p>
-		    <p><input type="text" class="widefat" name="father" value="<?php echo $father_val; ?>" id="father"></p>
-		    <p><label for="mother">Mother's Name</label></p>
-		    <p><input type="text" class="widefat" name="mother" value="<?php echo $mother_val; ?>" id="mother"></p>
+			<!-- Introduction -->
+			<div id="introduction">
+				<p><label for="introduction">Write about yourself:</label></p>
+				<p><textarea style="width: 100%; min-height: 150px; max-height: 300px;" name="introduction" id="introduction"></textarea>
+			</div>
 
-		    <p>
-		    	<input type="radio" name="gender" value="male" <?php if ( $gender_val == 'male' ) { echo 'checked="checked"'; } ?> id="male">
-		    	<label for="male"> Male</label> <br>
-		    	<input type="radio" name="gender" value="female" <?php if ( $gender_val == 'female' ) { echo 'checked="checked"'; } ?> id="female">
-		    	<label for="female">Female</label>
-		    </p>
-		  </div>
+			<!-- Education -->
+			<div id="education">
+				<div class="ei-form-group">
+					<p><label for="1st-form">Title of the degree</label></p>
+					<p>
+						<input type="text" id="1st-form" placeholder="Ex: B.Sc.">
+						<p>
+							<select name="2nd-form-year" id="2nd-form">
+								<option value="">Select Year</option>
+								<?php 
+									$number = 1900;
+									while ( $number < 3000 ):
+										$number++;
+								?>
+								<option value="<?php echo $number; ?>"><?php echo $number; ?></option>
+								<?php endwhile; ?>
+							<select>
+						</p>
+					</p>
+				</div>
+			</div>
 
-		  <!-- Official Information -->
-		  <div id="official">
-		    <p><label for="designation">Designation</label></p>
-		    <p><input type="text" class="widefat" name="designation" value="<?php echo $designation_val; ?>" id="designation"></p>
-		  </div>
+			<!-- Experience -->
+			<div id="experience">
+				<p><label for="sscyear">SSC Year</label></p>
+				<p><input type="number" class="widefat" name="sscyear" value="<?php echo $sscyear_val; ?>" id="sscyear"></p>
+				<p><label for="hscyear">HSC Year</label></p>
+				<p><input type="number" class="widefat" name="hscyear" value="<?php echo $hscyear_val; ?>" id="sscyear"></p>
+				<p><label for="bscyear">BSC Year</label></p>
+				<p><input type="number" class="widefat" name="bscyear" value="<?php echo $bscyear_val; ?>" id="sscyear"></p>
+			</div>
 
-		  <!-- Academic Informations -->
-		  <div id="academic">
-		    <p><label for="sscyear">SSC Year</label></p>
-		    <p><input type="number" class="widefat" name="sscyear" value="<?php echo $sscyear_val; ?>" id="sscyear"></p>
-			<p><label for="hscyear">HSC Year</label></p>
-		    <p><input type="number" class="widefat" name="hscyear" value="<?php echo $hscyear_val; ?>" id="sscyear"></p>
-			<p><label for="bscyear">BSC Year</label></p>
-		    <p><input type="number" class="widefat" name="bscyear" value="<?php echo $bscyear_val; ?>" id="sscyear"></p>
-		  </div>
-
-		  <!-- Experience -->
-		  <div id="experience">
-		    <p><label for="skills">Skills:</label></p>
-		    <p><input type="text" class="widefat" name="skills" value="<?php echo $skills_val; ?>" id="skills"></p>
-		  </div>
+			<!-- Skills -->
+			<div id="skills">
+				<p><label for="skills">Skills:</label></p>
+				<p><input type="text" class="widefat" name="skills" value="<?php echo $skills_val; ?>" id="skills"></p>
+			</div>
 
 		</div>
 		<?php 
